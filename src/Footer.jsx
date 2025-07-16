@@ -1,75 +1,46 @@
-// src/components/Footer.jsx
 import React from "react";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import ZaynaLogo from "./assets/ZaynaLogo.png"; // ✅ Correct path!
 
 const Footer = () => {
-  const linkGroups = [
-    {
-      title: "ZAYNA",
-      links: ["Rooms & Suites", "Dining", "Wellness", "Entertainment"],
-    },
-    {
-      title: "Company",
-      links: ["About Us", "Careers", "Privacy Policy", "Terms of Use"],
-    },
-    {
-      title: "Explore",
-      links: ["Contact", "Blog", "FAQ", "Support"],
-    },
-  ];
-
   return (
-    <footer className="bg-black text-white pt-12">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {linkGroups.map((group, idx) => (
-            <div key={idx}>
-              <h4 className="font-bold text-lg mb-4">{group.title}</h4>
-              <ul className="space-y-2 text-sm">
-                {group.links.map((label) => (
-                  <li key={label}>
-                    <a
-                      href="#!"
-                      className="text-white hover:text-gray-300 hover:underline transition-colors"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <footer className="bg-neutral-900 text-white px-6 md:px-20 py-10 text-sm font-light">
+      {/* Top Row: Logos */}
+      <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
+        <img src={ZaynaLogo} alt="Logo 1" className="h-40" />
+      </div>
+
+      {/* Bottom Row: Info Sections */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+        <div>
+          <h3 className="text-lg font-semibold border-b border-white/30 mb-4 inline-block">ADDRESS</h3>
+          <p>
+            Thee is situated at<br />
+            Address 9/1 Sukhumvit 20<br />
+            (Sainampeung) Klongtoei<br />
+            Bangkok 10110
+          </p>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-800 my-8" />
+        <div>
+          <h3 className="text-lg font-semibold border-b border-white/30 mb-4 inline-block">CONTACT</h3>
+          <p>Tel : +662-2610405</p>
+          <p>Fax : +662-2610407</p>
+          <p>Email : <a href="mailto:info@thee20.com" className="underline">info@thee20.com</a></p>
+        </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 pb-8">
-          <span>
-            © {new Date().getFullYear()} Zayna International Limited. All rights
-            reserved.
-          </span>
-          <div className="mt-4 md:mt-0 space-x-4">
-            <a
-              href="#!"
-              className="text-white hover:text-gray-300 hover:underline transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#!"
-              className="text-white hover:text-gray-300 hover:underline transition-colors"
-            >
-              Terms of Use
-            </a>
-            <a
-              href="#!"
-              className="text-white hover:text-gray-300 hover:underline transition-colors"
-            >
-              Site Map
-            </a>
+        <div>
+          <h3 className="text-lg font-semibold border-b border-white/30 mb-4 inline-block">FOLLOW US</h3>
+          <div className="flex justify-center md:justify-start gap-4 mt-2 text-xl">
+            <a href="#" className="hover:text-gray-400"><FaInstagram /></a>
+            <a href="#" className="hover:text-gray-400"><FaFacebookF /></a>
+            <a href="#" className="hover:text-gray-400"><FaYoutube /></a>
           </div>
         </div>
+      </div>
+
+      <div className="mt-12 text-center text-xs text-white/60">
+        © 2022–2025 THEE. All rights reserved.
       </div>
     </footer>
   );
