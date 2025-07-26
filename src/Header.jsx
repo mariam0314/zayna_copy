@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+import Guest from "./Hotel/Guest"; // ✅ Import modal
 import Logo from "./assets/ZaynaLogo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showGuestModal, setShowGuestModal] = useState(false); // ✅ Modal toggle
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -18,32 +22,28 @@ const Header = () => {
   }, []);
 
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black bg-opacity-90 shadow-md" : "bg-transparent"
-      } text-white`}
-    >
+    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-black bg-opacity-90 shadow-md" : "bg-transparent"} text-white`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        {/* Logo Image */}
+        {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img
-            src={Logo}
-            alt="Zayna Logo"
-            className="h-12 w-auto object-contain rounded-md shadow-md transition-transform duration-300 hover:scale-105"
-          />
+          <img src={Logo} alt="Zayna Logo" className="h-12 w-auto object-contain rounded-md shadow-md transition-transform duration-300 hover:scale-105" />
         </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-8 items-center">
-          <a href="#home" className="text-white hover:text-gray-300 transition">Home</a>
-          <a href="#about" className="text-white hover:text-gray-300 transition">About</a>
-          <a href="#contact" className="text-white hover:text-gray-300 transition">Contact</a>
-          <button className="ml-4 px-5 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition">
+          <Link to="/" className="hover:text-gray-300 transition" onClick={() => window.scrollTo(0, 0)}>Home</Link>
+          <Link to="/about" className="hover:text-gray-300 transition" onClick={() => window.scrollTo(0, 0)}>About</Link>
+          <Link to="/contact" className="hover:text-gray-300 transition" onClick={() => window.scrollTo(0, 0)}>Contact</Link>
+          {/* ✅ Modal trigger button */}
+          <button
+            onClick={() => setShowGuestModal(true)}
+            className="ml-4 px-5 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
+          >
             Guest Panel
           </button>
         </nav>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle */}
         <div className="md:hidden">
           <button onClick={toggleMenu}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -51,7 +51,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Nav Menu */}
+      {/* Mobile Nav */}
       {isOpen && (
         <motion.div
           initial={{ height: 0 }}
@@ -59,13 +59,15 @@ const Header = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden bg-black bg-opacity-90 px-4 pb-4"
         >
-          <a href="#home" className="block py-2 text-white hover:text-gray-300 transition">Home</a>
-          <a href="#about" className="block py-2 text-white hover:text-gray-300 transition">About</a>
-          <a href="#contact" className="block py-2 text-white hover:text-gray-300 transition">Contact</a>
-          <button className="w-full mt-3 px-4 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition">
-            Book Now
-          </button>
+          <Link to="/" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }} className="block py-2 text-white hover:text-gray-300 transition">Home</Link>
+          <Link to="/about" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }} className="block py-2 text-white hover:text-gray-300 transition">About</Link>
+          <Link to="/contact" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }} className="block py-2 text-white hover:text-gray-300 transition">Contact</Link>
         </motion.div>
+      )}
+
+      {/* ✅ Guest Login Modal */}
+      {showGuestModal && (
+        <Guest onClose={() => setShowGuestModal(false)} />
       )}
     </header>
   );

@@ -15,10 +15,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold border-b border-white/30 mb-4 inline-block">ADDRESS</h3>
           <p>
-            Thee is situated at<br />
-            Address 9/1 Sukhumvit 20<br />
-            (Sainampeung) Klongtoei<br />
-            Bangkok 10110
+            Dubai AL sahara road
           </p>
         </div>
 
