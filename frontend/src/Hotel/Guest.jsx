@@ -2,6 +2,7 @@
   import axios from "axios";
   import { useNavigate } from "react-router-dom";
   import { toast } from "react-toastify";
+  import 'react-toastify/dist/ReactToastify.css';
 
 
   const GuestLoginModal = ({ onClose }) => {
@@ -30,7 +31,8 @@
     toast.success("Login successful!");
     setGuestId("");
     setPassword("");
-    onClose();
+    if (typeof onClose === "function") onClose();
+
     navigate("/guest-panel", { state: res.data });
   })
   .catch((err) => {
@@ -41,23 +43,24 @@
 
 
     const handleRegister = async () => {
-      const { name, phone, roomNumber } = newGuestData;
-      if (!name || !phone || !roomNumber) {
-        alert("Please fill in all fields.");
-        return;
-      }
+  const res = await fetch('https://zayna-backend.onrender.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name, phone, secretCode,
+    }),
+  });
 
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL || ""}/api/guest/register`,
-          newGuestData
-        );
-        setGeneratedCredentials(res.data); // Show credentials
-      } catch (error) {
-        console.error("❌ Registration Failed:", error.response?.data || error.message);
-        alert(error.response?.data?.error || "Registration failed. Try again.");
-      }
-    };
+  const data = await res.json();
+
+  if (res.ok) {
+    setGuestId(data.guestId);  // <-- These must match backend response
+    setPassword(data.password);
+  } else {
+    toast.error(data.message || 'Registration failed');
+  }
+};
+
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-[999]">

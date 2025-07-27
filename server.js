@@ -13,6 +13,8 @@ import guestRoutes from "./Routes/Guest.js";
 dotenv.config();
 
 const app = express();
+const allowedOrigins = process.env.FRONTEND_URL.split(',');
+
 const PORT = process.env.PORT || 5000;
 
 // ✅ Adjusted CORS settings here
@@ -20,13 +22,21 @@ const PORT = process.env.PORT || 5000;
 
 // Use this CORS middleware before any routes
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://zayna.wuaze.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("❌ Not allowed by CORS"));
+    }
+  },
   credentials: true,
 }));
 
+
 // Middleware
 app.use(express.json());
+app.use("/api/guest", guestRoutes); // in server.js
+
 
 // ✅ MongoDB Connection
 mongoose
