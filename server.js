@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -13,12 +12,9 @@ import guestRoutes from "./Routes/Guest.js";
 dotenv.config();
 
 const app = express();
-const allowedOrigins = process.env.FRONTEND_URL.split(',');
-
 const PORT = process.env.PORT || 5000;
 
-// ✅ Adjusted CORS settings here
-
+const allowedOrigins = process.env.FRONTEND_URL.split(',');
 
 // Use this CORS middleware before any routes
 app.use(cors({
@@ -32,13 +28,21 @@ app.use(cors({
   credentials: true,
 }));
 
-
 // Middleware
 app.use(express.json());
-app.use("/api/guest", guestRoutes); // in server.js
 
+// API Routes
+app.use("/api/contact", contactRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/booking", bookingRoutes);
+app.use("/api/guest", guestRoutes);
 
-// ✅ MongoDB Connection
+// Root Route
+app.get("/", (req, res) => {
+  res.send("🏨 Welcome to the Hotel Backend API!");
+});
+
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -47,18 +51,7 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// ✅ API Routes
-app.use("/api/contact", contactRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/booking", bookingRoutes);
-app.use("/api/guest", guestRoutes);
-
-// ✅ Root Route
-app.get("/", (req, res) => {
-  res.send("🏨 Welcome to the Hotel Backend API!");
-});
-
-// ✅ Start Server
+// Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
