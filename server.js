@@ -41,8 +41,15 @@ app.use(express.json());
 // Serve static files from the frontend build directory
 app.use(express.static(path.join(__dirname, 'frontend', 'dist'), {
   setHeaders: function (res, filePath, stat) {
-    if (filePath.endsWith('.js') || filePath.endsWith('.mjs')) {
+    // Set correct MIME types for JavaScript files
+    if (filePath.endsWith('.js')) {
       res.set('Content-Type', 'text/javascript');
+    } else if (filePath.endsWith('.mjs')) {
+      res.set('Content-Type', 'text/javascript');
+    } else if (filePath.endsWith('.css')) {
+      res.set('Content-Type', 'text/css');
+    } else if (filePath.endsWith('.json')) {
+      res.set('Content-Type', 'application/json');
     }
   }
 }));
