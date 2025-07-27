@@ -5,8 +5,9 @@
   "main": "eslint.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "echo \"Build step for Node.js server\" || true"
+    "start": "node dist/server.js",
+    "build": "tsc && cd frontend && npm run build",
+    "dev": "nodemon dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,10 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mongoose": "^8.16.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

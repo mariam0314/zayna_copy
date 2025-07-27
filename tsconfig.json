@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "allowJs": true, // Enable JavaScript file compilation
+    "checkJs": false, // Disable type checking for .js files
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "server.js", // Include server.js
+    "Routes/**/*" // Include all files in Routes
+  ],
+  "exclude": [
+    "node_modules",
+    "frontend/**" // Exclude frontend unless building it
+  ]
+}
