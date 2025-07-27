@@ -5,7 +5,8 @@
   "main": "eslint.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo \"Build step for Node.js server\" || true"
   },
   "repository": {
     "type": "git",
