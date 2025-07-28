@@ -8,8 +8,10 @@ import Home from "./Hotel/Home";
 import About from "./Hotel/About";
 import Contact from "./Hotel/Contact";
 import BookNow from "./Booking/BookNow"; // ✅ FIXED PATH
-import GuestPanel from "./Hotel/Guest"; 
-import Guest from "./Hotel/GuestPanel";
+import GuestModal from "./Hotel/Guest";         // login modal
+import GuestPanel from "./Hotel/GuestPanel";    // actual panel shown after login
+
+import EnvTest from "./EnvTest";
 // Scroll to top on route change
 function ScrollToTopOnRouteChange() {
   const { pathname } = useLocation();
@@ -38,15 +40,12 @@ function AppContent() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/book" element={<BookNow />} />
-        <Route path="/guest" element={<GuestPanel />} />
-        <Route path="/guest-panel" element={<GuestPanel />} /> {/* ✅ Add this */}
-
-      </Routes>
-
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/contact" element={<Contact />} />
+  <Route path="/book" element={<BookNow />} />
+  <Route path="/guest-panel" element={<GuestPanel />} /> {/* ✅ correct now */}
+</Routes>
       {/* Show footer on all pages except About */}
       {location.pathname !== "/about" && <Footer />}
       

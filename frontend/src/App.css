@@ -15,4 +15,11 @@
     background-color: black; /* Optional: Ensures full dark background */
     overflow-x: hidden;
   }
+  /* override slick font reference */
+.slick-prev:before,
+.slick-next:before {
+  font-family: inherit !important;
+  color: black; /* or white */
+}
+
   
